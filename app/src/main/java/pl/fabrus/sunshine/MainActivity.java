@@ -70,10 +70,10 @@ public class MainActivity extends ActionBarActivity {
                     "Sun - Sunny - 28/23"
             };
 
-            List<String> weekForecast = new ArrayList<>(
+            List<String> weekForecast = new ArrayList<String>(
                     Arrays.asList(forecastArray));
 
-            mForecastAdapter = new ArrayAdapter<>(
+            mForecastAdapter = new ArrayAdapter<String>(
                     getActivity(),
                     R.layout.list_item_forecast,
                     R.id.list_item_forecast_textview,
