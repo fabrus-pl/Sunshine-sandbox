@@ -1,7 +1,6 @@
 package pl.fabrus.sunshine;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,8 +8,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -40,10 +43,7 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     /**
@@ -51,6 +51,7 @@ public class MainActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+        private ArrayAdapter<String> mForecastAdapter;
         public PlaceholderFragment() {
         }
 
@@ -58,6 +59,31 @@ public class MainActivity extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+            String[] forecastArray = {
+                    "Today - Sunny - 26/15",
+                    "Tomorrow - Foggy - 20/12",
+                    "Weds - Cloudy - 21/14",
+                    "Thurs - Asteroids - 30/27",
+                    "Fri - Heavy Rain - 27/22",
+                    "Sat - Help me please - 25//25",
+                    "Sun - Sunny - 28/23"
+            };
+
+            List<String> weekForecast = new ArrayList<>(
+                    Arrays.asList(forecastArray));
+
+            mForecastAdapter = new ArrayAdapter<>(
+                    getActivity(),
+                    R.layout.list_item_forecast,
+                    R.id.list_item_forecast_textview,
+                    weekForecast
+            );
+
+            ListView listView = (ListView) rootView.findViewById(
+                    R.id.listview_forecast);
+            listView.setAdapter(mForecastAdapter);
+
             return rootView;
         }
     }
